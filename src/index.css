@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --background-color: #161D31;
+    --background-color-main: #283046;
+    --text-color: #D0D2D6;
+    --main-color: #7367F0;
+    --main-color-dark: #6258CC;
+    --font-family-first: 'Spectral', Georgia;
+    --font-family-second: 'Montserrat', sans-serif;
+    --line-height: 1.45;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: var(--font-family-second);
+    color: var(--text-color);
+    line-height: var(--line-height);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span {
+    margin: 0;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+    color: unset;
+    line-height: var(--line-height);
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    list-style: none;
+}
+
+input {
+    color: var(--text-color);
+    border: 1px solid #404656;
+    background-color: #283046;
+    border-radius: 0.357rem;
+    padding: 0.75rem 1.143rem;
+    margin-bottom: 1rem;
+    display: block;
+    width: 100%;
+    font-size: 1.143rem;
+}
+
+input:hover,
+input:focus {
+    outline: none;
+    transition: 0.2s;
+    border-color: #7367f0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(80%);
+}
+
+label {
+    display: block;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0 !important;
+    padding-bottom: 0.5rem !important;
+    color: var(--text-color);
+}
+
+::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px var(--text-color);
+    width: 50%;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--main-color-dark);
+    border-radius: 40px;
+}
+
+.container {
+    padding-left: calc(var(--bs-gutter-x) * 0.5 + 80px);
+}
+
+.row {
+    --bs-gutter-x: 2rem;
+}
+
+.row>* {
+    padding-right: calc(var(--bs-gutter-x)*0.5);
+    padding-left: calc(var(--bs-gutter-x)*0.5);
+}
+
+.btn {
+    color: #FFF;
+    padding: 0.786rem 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.428rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    transition: all .15s ease-in-out;
+}
+
+.btn-primary {
+    background-color: var(--main-color) !important;
+    border-color: var(--main-color) !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 8px 25px -8px var(--main-color);
+}
+
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: #5e50ee !important;
+    border-color: var(--main-color) !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.card {
+    background-color: var(--background-color-main);
+    box-shadow: 0 4px 24px 0 rgb(34 41 47 / 24%);
+    border: 0 solid var(--cardbackground-color);
+    border-radius: 0.428rem;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-body>svg {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.table {
+    background-color: var(--background-color-main);
+    padding: 1.5rem 0;
+    margin: 0;
+    border-radius: .428rem;
+    overflow: auto;
+}
+
+.table-head {
+    display: flex;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 12px;
+    font-weight: 500;
+    height: 38px;
+}
+
+.table-head-row {
+    background-color: #343d55;
+}
+
+.table-head-row>.table-cell {
+    height: 38px;
+}
+
+.table-head-row>.table-cell>span {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.table-row,
+.table-head-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    align-content: stretch;
+}
+
+.table-row {
+    border-bottom: 3px solid #3b4253;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-cell {
+    padding: 0.72rem 1.5rem !important;
+    min-height: 53px;
+    height: fit-content;
+    flex: 1 0 0px;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    min-width: 150px;
+}
+
+.table-body > .table-row > .table-cell:not(:last-child){
+    border-right: #3b4253 3px solid;
+}
+
+.table-cell span {
+    color: var(--text-color);
+    font-size: 13px;
+}
+
+.button-edit,
+.button-trash {
+    background-color: transparent;
+    padding: 0;
+    padding-right: 10px;
+    border: none;
+    z-index: 20;
+}
+
+.button-edit>svg,
+.button-trash>svg {
+    fill: var(--text-color);
+    width: 28px;
+    height: 28px;
+}
+
+.mr-4 {
+    margin-right: 16px !important;
+}
+
+.form-check {
+    display: flex !important;
+    align-items: center;
+    padding-left: 0px !important;
+}
+
+.form-check>input {
+    margin-right: 1.25rem;
+    margin-left: 0px !important;
+    padding: 0.5rem 0.5rem;
+}
+
+.btn-float {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    bottom: 5%;
+    right: 4%;
+}
+
+.btn-float>button {
+    margin-top: 22px;
+    font-size: 22px
+}
+
+.btn-float>.rounded-circle {
+    padding: 20px 20px;
+}
+
+.MuiSelect-select {
+    color: var(--text-color) !important;
+    border: 1px solid #404656 !important;
+    border-radius: 0.357rem !important;
+    padding: 0.75rem 1.143rem !important;
+    font-size: 1.143rem !important;
+    line-height: var(--line-height);
+    outline: none !important;
+}
+
+.MuiSelect-select:hover,
+.MuiSelect-select:focus {
+    outline: none !important;
+    transition: 0.2s !important;
+    border-color: #7367f0 !important;
+}
+
+.MuiOutlinedInput-notchedOutline,
+.MuiOutlinedInput-notchedOutline:hover {
+    border: none !important;
+    outline: none !important;
+}
+
+.clickable > .table-row {
+    cursor: pointer;
+    position:relative;
+}
+
+.clickable > .table-row:hover {
+    opacity: 0.3;
+    transition: all 0.1s;
+}
+
+.ml-1{
+    margin-left: 8px;
+}

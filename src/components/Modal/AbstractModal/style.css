@@ -1,0 +1,74 @@
+h5{
+    font-size: 1.07rem; 
+}
+
+.modal-overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-container {
+    width: 600px;
+    height: fit-content;
+    background-color: #283046;
+    box-shadow: 0 5px 20px 0 rgb(34 41 47 / 10%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+    border-radius: calc(0.358rem - 1px);
+}
+
+.modal-close-btn{
+    transform: translate(8px,-2px);
+    margin: -1.2rem -1.4rem -0.8rem auto;
+}
+
+.modal-close-btn > button{
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1;
+    padding: 0.2rem 0.62rem;
+    border: none;
+    border-radius: 0.357rem;
+    background-color: #283046;
+    box-shadow: 0 3px 8px 0 rgba(11,10,25,.49);
+}
+
+.modal-title {
+    display: flex;
+    background-color: #161d31;   
+    border-top-left-radius: calc(0.358rem - 1px);
+    border-top-right-radius: calc(0.358rem - 1px);
+}
+
+.modal-container > div{
+    padding: 0.8rem 1.4rem;
+}
+
+.modal-body {
+    display: flex;
+    overflow-y: auto;
+    max-height: 750px;
+    position: unset !important;
+    flex: unset !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #3b4253;
+    justify-content: flex-end;
+}
+
+
+#cancelBtn {
+    background-color: crimson;
+}

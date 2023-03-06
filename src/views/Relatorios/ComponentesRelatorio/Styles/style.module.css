@@ -1,0 +1,22 @@
+.table_head_serv{
+	width: max-content !important;
+}
+.table_body_serv{
+	width: fit-content !important;
+}
+.table_cell_serv{
+	width: 150px;
+	min-height: 53px;
+	height: fit-content;
+}
+.clickable {
+    cursor: pointer;
+    position:relative;
+}
+.clickable:hover{
+    opacity: 0.3;
+}
+
+.card_relatorio{
+	min-height: 180px;
+}

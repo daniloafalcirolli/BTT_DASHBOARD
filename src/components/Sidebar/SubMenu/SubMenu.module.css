@@ -1,0 +1,59 @@
+.sidebarLink {
+    display: flex;
+    align-items: center;
+    height: 42.33px;
+    padding: 10px 15px;
+    transition: all 0.850ms;
+    border-radius: 4px;
+    position: relative;
+}
+
+.sidebarLink > div {
+    position: absolute;
+    right: 0;
+}
+
+.sidebarLink > svg {
+    width: 20px;
+    height: 20px;
+}
+
+.sidebarLink > svg, .dropdownLink > svg {
+    font-size: 1.45rem;
+}
+
+.sidebarLink > *, .dropdownLink > * {
+    transition: transform .25s ease,-webkit-transform .25s ease;
+}
+
+.sidebarLink:hover > *:not(div) , .dropdownLink:hover > * {
+    transform: translateX(5px);
+}
+
+.rotate{
+    transform: rotate(90deg);
+    transition: .2s all;
+}
+
+.sidebarLabel {
+    font-size: 1.1rem;
+    margin-left: 1.1rem;
+}
+
+.dropdownLink {
+    display: flex;
+    align-items: center;
+    height: 42.33px;
+    padding: 10px 15px 10px 20px;
+    transition: all 0.850ms;
+    border-radius: 4px;
+}
+
+.dropdownLink > svg{
+    width: 11px;
+    height: 11px;
+}
+
+.sidebarLink:hover, .dropdownLink:hover {
+    cursor: pointer;
+}
