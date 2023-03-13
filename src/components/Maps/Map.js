@@ -35,7 +35,7 @@ export default function Map(props) {
 				})
 			};
 
-			const directionsService = new google.maps.DirectionsService()
+			const directionsService = new google.maps.DirectionsService();
 			const results = await directionsService.route({
 				origin: {
 					lat: Number(origin.latitude),
@@ -48,6 +48,7 @@ export default function Map(props) {
 				waypoints: waypoints,
 				travelMode: google.maps.TravelMode.DRIVING,
 			});
+			
 			results.data = props.directions[0].data;
 			results.consumo = props.directions[0].consumo;
 			results.gasolina = props.directions[0].gasolina;

@@ -193,8 +193,17 @@ const RelatorioRotaIndividual = () => {
                                     <span>Distância total percorrida: <b>{(totalDist/1000).toString()} km</b></span>
                                 </div>
 
+                                <div className="d-flex align-items-center justify-content-center w-100">
+                                    <div className="col-5 mt-4">
+                                        <span>Valor de correção<br/> a ser pago para o funcionário:  <b>R$ {(((((totalDist / 1000) / routes[0].consumo) * routes[0].gasolina).toFixed(2)*10)/100).toFixed(2)}</b></span>
+                                    </div>
+
+                                    <div className="col-5 mt-4">
+                                        <span>Valor a ser pago para o <br/>funcionário sem adição da correção:  <b>R$ {(((totalDist / 1000) / routes[0].consumo) * routes[0].gasolina).toFixed(2)}</b></span>
+                                    </div>
+                                </div>
                                 <div className="col-12 mt-4">
-                                    <span>Valor a ser pago para o funcionário:  <b>R$ {(((totalDist / 1000) / routes[0].consumo) * routes[0].gasolina).toFixed(2)}</b></span>
+                                        <span>Valor a ser pago para o funcionário:  <b>R$ {Number((((totalDist / 1000) / routes[0].consumo) * routes[0].gasolina).toFixed(2)) + Number((((((totalDist / 1000) / routes[0].consumo) * routes[0].gasolina).toFixed(2)*10)/100).toFixed(2))}</b></span>
                                 </div>
                             </div>
                             <div className="col-12 mt-4">

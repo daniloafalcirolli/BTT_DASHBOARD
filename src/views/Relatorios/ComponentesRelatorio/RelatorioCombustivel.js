@@ -79,8 +79,10 @@ const RelatorioCombustivel = () => {
 
         setDataTable([]);
         setRoutes([]);
+        let array = [];
         Object.values(json).forEach(x => {
             Object.values(x).forEach(y => {
+                array.push(y);
                 setRoutes(routes => [...routes, y]);
             })
         });
@@ -88,7 +90,7 @@ const RelatorioCombustivel = () => {
 
     const appendToTable = (responseMap) => {
         let calculatedDistance = 0;
-        responseMap.routes[0].legs.forEach(x => {
+        responseMap.routes[0].legs.forEach((x, index) => {
             calculatedDistance += x.distance.value;
         });
 
