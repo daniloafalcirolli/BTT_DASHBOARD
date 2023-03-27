@@ -15,7 +15,7 @@ const RelatorioCombustivel = () => {
     const [dataFinal, setDataFinal] = React.useState("");
     const [routes, setRoutes] = React.useState(null);
     const [totalDist, setTotalDist] = React.useState(0);
-    const [cabecalho] = React.useState(["Funcionário", "Cidade", "Data", "Distância", "Valor"])
+    const [cabecalho] = React.useState(["Funcionário", "Cidade", "Data", "Distância", "Valor", "Valor Adicional (10%)", "Valor Final"])
     const [dataTable, setDataTable] = React.useState([]);
 
     const limparCampos = () => {
@@ -206,6 +206,12 @@ const RelatorioCombustivel = () => {
                                                 </div>
                                                 <div className="table-cell">
                                                     <span>R$ {item.valor}</span>
+                                                </div>
+                                                <div className="table-cell">
+                                                    <span>R$ {((item.valor * 10) / 100).toFixed(2)}</span>
+                                                </div>
+                                                <div className="table-cell">
+                                                    <span>R$ {Number(((item.valor * 10) / 100).toFixed(2))+Number(item.valor)}</span>
                                                 </div>
                                             </div>
                                         );
