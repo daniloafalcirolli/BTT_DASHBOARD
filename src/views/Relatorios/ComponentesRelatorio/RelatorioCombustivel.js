@@ -6,6 +6,7 @@ import Map from '../../../components/Maps/Map';
 import ModalCidade from './Modals/ModalCidade'
 import ModalFuncionario from './Modals/ModalFuncionario'
 import ModalProvedor from './Modals/ModalProvedor'
+import styles from './Styles/style.module.css';
 
 const RelatorioCombustivel = () => {
     const [funcionario, setFuncionario] = React.useState({});
@@ -15,7 +16,7 @@ const RelatorioCombustivel = () => {
     const [dataFinal, setDataFinal] = React.useState("");
     const [routes, setRoutes] = React.useState(null);
     const [totalDist, setTotalDist] = React.useState(0);
-    const [cabecalho] = React.useState(["Funcionário", "Cidade", "Data", "Distância", "Valor", "Valor Adicional (10%)", "Valor Final"])
+    const [cabecalho] = React.useState(["Funcionário", "Empresa", "Cidade", "Data", "Distância", "Valor", "Valor Adicional (10%)", "Valor Final"])
     const [dataTable, setDataTable] = React.useState([]);
 
     const limparCampos = () => {
@@ -76,6 +77,7 @@ const RelatorioCombustivel = () => {
         }
         let response = await fetch(url, settings);
         let json = await response.json();
+        console.log(json);
 
         setDataTable([]);
         setRoutes([]);
@@ -100,7 +102,8 @@ const RelatorioCombustivel = () => {
             cidade: responseMap.nome_cidade,
             data: responseMap.data,
             distancia: calculatedDistance / 1000,
-            valor: valorFinal
+            valor: valorFinal,
+            empresa: responseMap.empresa
         };
         
         setDataTable(dataTable => [...dataTable, row]);
@@ -171,15 +174,15 @@ const RelatorioCombustivel = () => {
             {
                 dataTable.length > 0 &&
                 <>
-                    <div className="col-12 mt-4">
+                    <div className=" mt-4">
                         <div className="table">
-                            <div className="table-head">
+                            <div className={`table-head ${styles.table_head_serv}`}>
                                 <div className="table-head-row">
                                     {
                                         cabecalho &&
                                         cabecalho.map((item, index) => {
                                             return (
-                                                <div className="table-cell" key={index}>
+                                                <div className={`table-cell ${styles.table_cell_serv}`} key={index}>
                                                     <span>{item}</span>
                                                 </div>
                                             );
@@ -187,30 +190,33 @@ const RelatorioCombustivel = () => {
                                     }
                                 </div>
                             </div>
-                            <div className="table-body">
+                            <div className={`table-boy ${styles.table_body_serv}`}>
                                 {
                                     dataTable.map((item, index) => {
                                         return (
                                             <div className="table-row" key={index}>
-                                                <div className="table-cell">
+                                                <div className={`table-cell ${styles.table_cell_serv}`}>
                                                     <span>{item.funcionario}</span>
                                                 </div>
-                                                <div className="table-cell">
+                                                <div className={`table-cell ${styles.table_cell_serv}`}>
+                                                    <span>{item.empresa}</span>
+                                                </div>
+                                                <div className={`table-cell ${styles.table_cell_serv}`}>
                                                     <span>{item.cidade}</span>
                                                 </div>
-                                                <div className="table-cell">
+                                                <div className={`table-cell ${styles.table_cell_serv}`}>
                                                     <span>{item.data}</span>
                                                 </div>
-                                                <div className="table-cell">
+                                                <div className={`table-cell ${styles.table_cell_serv}`}>
                                                     <span>{item.distancia.toString().replace(".", ",")} km</span>
                                                 </div>
-                                                <div className="table-cell">
+                                                <div className={`table-cell ${styles.table_cell_serv}`}>
                                                     <span>R$ {item.valor}</span>
                                                 </div>
-                                                <div className="table-cell">
+                                                <div className={`table-cell ${styles.table_cell_serv}`}>
                                                     <span>R$ {((item.valor * 10) / 100).toFixed(2)}</span>
                                                 </div>
-                                                <div className="table-cell">
+                                                <div className={`table-cell ${styles.table_cell_serv}`}>
                                                     <span>R$ {Number(((item.valor * 10) / 100).toFixed(2))+Number(item.valor)}</span>
                                                 </div>
                                             </div>

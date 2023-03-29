@@ -54,7 +54,8 @@ export default function Map(props) {
 			results.gasolina = props.directions[0].gasolina;
 			results.nome_funcionario = props.directions[0].nome_funcionario;
 			results.nome_cidade = props.directions[0].nome_cidade;
-
+			results.empresa = props.directions[0].empresa;
+			
 			props.responseMap(results);
 			setDirections(results);
 
