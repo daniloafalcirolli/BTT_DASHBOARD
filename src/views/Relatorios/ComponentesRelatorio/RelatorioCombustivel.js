@@ -6,12 +6,14 @@ import Map from '../../../components/Maps/Map';
 import ModalCidade from './Modals/ModalCidade'
 import ModalFuncionario from './Modals/ModalFuncionario'
 import ModalProvedor from './Modals/ModalProvedor'
+import ModalEmpresa from './Modals/ModalEmpresa';
 import styles from './Styles/style.module.css';
 
 const RelatorioCombustivel = () => {
     const [funcionario, setFuncionario] = React.useState({});
     const [provedor, setProvedor] = React.useState({});
     const [cidade, setCidade] = React.useState({});
+    const [empresa, setEmpresa] = React.useState({});
     const [dataInicio, setDataInicio] = React.useState("");
     const [dataFinal, setDataFinal] = React.useState("");
     const [routes, setRoutes] = React.useState(null);
@@ -26,24 +28,35 @@ const RelatorioCombustivel = () => {
         setDataInicio("");
         setDataFinal("");
         setDataTable([]);
+        setEmpresa({});
     }
 
     const changeCidade = (cidade) => {
         setCidade(cidade);
         setProvedor({});
         setFuncionario({});
+        setEmpresa({});
     }
 
     const changeProvedor = (provedor) => {
         setProvedor(provedor);
         setCidade({});
         setFuncionario({});
+        setEmpresa({});
+    }
+    
+    const changeEmpresa = (empresa) => {
+        setEmpresa(empresa);
+        setCidade({});
+        setFuncionario({});
+        setProvedor({});
     }
 
     const changeFuncionario = (funcionario) => {
         setFuncionario(funcionario);
-        setProvedor({});
         setCidade({});
+        setEmpresa({});
+        setProvedor({});
     }
 
     const changeDataInicio = (event) => {
@@ -66,7 +79,8 @@ const RelatorioCombustivel = () => {
         json_data.cpf_funcionario = funcionario.cpf ? funcionario.cpf : "";
         json_data.nome_cidade = cidade.cidade ? cidade.cidade : "";
         json_data.id_provedor = provedor.id ? provedor.id : 0;
-        
+        json_data.empresa = empresa.id ? empresa.id : 0;
+
         let url = API_URL + "/api/rotas/relatorio/combustivel";
         let settings = {
             method: "POST",
@@ -77,7 +91,6 @@ const RelatorioCombustivel = () => {
         }
         let response = await fetch(url, settings);
         let json = await response.json();
-        console.log(json);
 
         setDataTable([]);
         setRoutes([]);
@@ -136,6 +149,15 @@ const RelatorioCombustivel = () => {
                 </div>
                 <div className="col-6">
                     <Input type="text" label="Provedor selecionado" disabled value={provedor.name ? provedor.name : "--"} />
+                </div>
+            </div>
+            <div className="col-12 row d-flex">
+                <div className="col-6">
+                    <label>Pesquisar por Empresa</label>
+                    <ModalEmpresa empresa={changeEmpresa} />
+                </div>
+                <div className="col-6">
+                    <Input type="text" label="Empresa selecionada" disabled value={empresa.nome ? `${empresa.nome} - ${empresa.razao_social}` : "--"} />
                 </div>
             </div>
             <div className="col-12 row d-flex">
@@ -217,7 +239,7 @@ const RelatorioCombustivel = () => {
                                                     <span>R$ {((item.valor * 10) / 100).toFixed(2)}</span>
                                                 </div>
                                                 <div className={`table-cell ${styles.table_cell_serv}`}>
-                                                    <span>R$ {Number(((item.valor * 10) / 100).toFixed(2))+Number(item.valor)}</span>
+                                                    <span>R$ {(Number(((item.valor * 10) / 100).toFixed(2))+Number(item.valor)).toFixed(2)}</span>
                                                 </div>
                                             </div>
                                         );

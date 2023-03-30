@@ -2,6 +2,7 @@ import React from 'react'
 import { FaSearch, FaWindowClose, FaFileDownload, FaDownload } from 'react-icons/fa';
 import { GET_SERVICOS_INTERVAL } from '../../../api';
 import ModalFuncionario from './Modals/ModalFuncionario';
+import ModalEmpresa from './Modals/ModalEmpresa';
 import Input from '../../../components/Input/Input';
 
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +14,7 @@ const RelatorioServicos = () => {
     const [data, setData] = React.useState([]);
     const [funcionario, setFuncionario] = React.useState({});
     const [provedor, setProvedor] = React.useState({});
+    const [empresa, setEmpresa] = React.useState({});
     const [dataInicio, setDataInicio] = React.useState("");
     const [dataFinal, setDataFinal] = React.useState("");
     const [status_servico, setStatusServico] = React.useState("");
@@ -56,6 +58,8 @@ const RelatorioServicos = () => {
         json_data.status = status_servico;
         json_data.cpf_funcionario = funcionario.cpf ? funcionario.cpf : "";
         json_data.id_provedor = provedor.id ? provedor.id : "";
+        json_data.empresa = empresa.id ? empresa.id : "";
+        console.log(json_data)
         let { url, options } = GET_SERVICOS_INTERVAL(json_data);
         let response = await fetch(url, options);
         let json = await response.json();
@@ -70,6 +74,10 @@ const RelatorioServicos = () => {
         setDataFinal(event.target.value);
     }
 
+    const changeEmpresa = (empresa) => {
+        setEmpresa(empresa);
+    }
+
     const limparCampos = () => {
         setDataInicio("");
         setDataFinal("");
@@ -77,6 +85,7 @@ const RelatorioServicos = () => {
         setFuncionario({});
         setProvedor({});
         setData([]);
+        setEmpresa({});
     }
 
     const redirectToDescription = (event) => {
@@ -89,7 +98,6 @@ const RelatorioServicos = () => {
                 alert("Relatório modelo unifique só pode ser gerado para os serviços que tenham a unifique como provedor!")
             } else {
                 console.log("liberar");
-
             }
         }else{
             alert("Relatório modelo unifique só pode ser gerado para os serviços que tenham a unifique como provedor!")
@@ -131,6 +139,15 @@ const RelatorioServicos = () => {
                     </div>
                     <div className="col-6">
                         <Input type="text" label="Provedor selecionado" disabled value={provedor.name ? provedor.name : "--"} />
+                    </div>
+                </div>
+                <div className="col-12 row d-flex">
+                    <div className="col-6">
+                        <label>Pesquisar por Empresa</label>
+                        <ModalEmpresa empresa={changeEmpresa} />
+                    </div>
+                    <div className="col-6">
+                        <Input type="text" label="Empresa selecionada" disabled value={empresa.nome ? `${empresa.nome} - ${empresa.razao_social}` : "--"} />
                     </div>
                 </div>
                 <div className="col-12 row d-flex">
