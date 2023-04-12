@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Styles/style.module.css';
 import { FormControl, MenuItem, Select, Tooltip } from '@mui/material';
 import ModalProvedor from './Modals/ModalProvedor';
+import "./Styles/RelatorioServicos.module.css";
 
 const RelatorioServicos = () => {
     const [data, setData] = React.useState([]);
@@ -18,6 +19,7 @@ const RelatorioServicos = () => {
     const [dataInicio, setDataInicio] = React.useState("");
     const [dataFinal, setDataFinal] = React.useState("");
     const [status_servico, setStatusServico] = React.useState("");
+    const [relatorioNormal, setRelatorioNormal] = React.useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -59,7 +61,7 @@ const RelatorioServicos = () => {
         json_data.cpf_funcionario = funcionario.cpf ? funcionario.cpf : "";
         json_data.id_provedor = provedor.id ? provedor.id : "";
         json_data.empresa = empresa.id ? empresa.id : "";
-        console.log(json_data)
+        
         let { url, options } = GET_SERVICOS_INTERVAL(json_data);
         let response = await fetch(url, options);
         let json = await response.json();
@@ -98,6 +100,7 @@ const RelatorioServicos = () => {
                 alert("Relatório modelo unifique só pode ser gerado para os serviços que tenham a unifique como provedor!")
             } else {
                 console.log("liberar");
+                console.log(data)
             }
         }else{
             alert("Relatório modelo unifique só pode ser gerado para os serviços que tenham a unifique como provedor!")
@@ -105,13 +108,35 @@ const RelatorioServicos = () => {
     }
 
     const generateRelatorioModeloPadrao = () => {
+        if(data.length != 0){
+            let csv = ""
+            csv+="funcionario;servico;provedor;status;cliente;contrato;data;hora finalizacao\n"
+            data.forEach(function(e){
+                csv+=`${e.funcionario};`;
+                csv+=`${e.provedor};`;
+                csv+=`${e.servico_provedor};`;
+                csv+=`${e.status};`;
+                csv+=`${e.cliente};`;
+                csv+=`${e.contrato};`;
+                csv+=`${e.data_inicio};`;
+                csv+=`${e.hora_finalizacao};`;
+                csv+=`\n`
+            })
+            let link = document.querySelector("#downloadbutton");
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob)
+            link.setAttribute('href', url)
+            link.setAttribute('download', 'relatorio.csv');
+            link.click();
+        }
     }
 
     return (
         <>
             <div className="btn-float">
+                <a id="downloadbutton"></a>
                 <Tooltip title="Relatório modelo unifique" onClick={generateRelatorioModeloUnifique}>
-                    <button className="btn btn-primary rounded-circle">
+                    <button className="btn btn-primary rounded-circle fixItem">
                         <FaFileDownload />
                     </button>
                 </Tooltip>

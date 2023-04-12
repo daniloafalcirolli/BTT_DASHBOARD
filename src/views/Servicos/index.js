@@ -11,6 +11,7 @@ const ServicoDescricao = () => {
 			let { url } = GET_SERVICO(params.id);
 			let response = await fetch(url);
 			let json = await response.json();
+			console.log(json)
 			setServico(json);
 		}
 		getById();
@@ -24,7 +25,7 @@ const ServicoDescricao = () => {
 					<h2 className="col-12">Resumo do serviço</h2>
 					<div className="col-12 mt-4">
 						<h4>Funcionário responsável</h4>
-						<div className="col-12 mt-4 mb-4 row">
+						<div className=" mt-4 mb-4 row">
 							{
 								servico.funcionario &&
 								<>
@@ -60,6 +61,13 @@ const ServicoDescricao = () => {
 										<label>Empresa</label>
 										<input value={servico.funcionario.empresa} readOnly />
 									</div>
+									{
+										servico.status === "em andamento" ? <div className="w-100 row d-flex justify-content-center">
+											<button className="btn btn-primary w-75 align-self-center">
+												Mudar Funcionario
+											</button>
+										</div> : null
+									}
 								</>
 							}
 						</div>
