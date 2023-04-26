@@ -3,6 +3,7 @@ import RelatorioCombustivel from './ComponentesRelatorio/RelatorioCombustivel'
 import RelatorioHub from './ComponentesRelatorio/RelatorioHub'
 import RelatorioRotaIndividual from './ComponentesRelatorio/RelatorioRotaIndividual'
 import RelatorioServicos from './ComponentesRelatorio/RelatorioServicos'
+import RelatorioServicosUnifique from './ComponentesRelatorio/RelatorioServicosUnifique'
 
 const Relatorios = () => {
     const [page, setPage] = React.useState(0);
@@ -25,6 +26,8 @@ const Relatorios = () => {
                 return (<RelatorioCombustivel />);
             case 3:
                 return (<RelatorioRotaIndividual />);
+            case 4:
+                return (<RelatorioServicosUnifique />);
             default:
                 return (<><p>Selecione um relatório</p></>);
         }

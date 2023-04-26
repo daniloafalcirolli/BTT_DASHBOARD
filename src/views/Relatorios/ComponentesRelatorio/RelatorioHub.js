@@ -32,7 +32,7 @@ const RelatorioHub = (props) => {
                 <div className={`card ${styles.card_relatorio}`} onClick={() => {props.page(4)}}>
                     <div className="card-body">
                         <FaUserNinja />
-                        <button className='btn btn-primary'>Relatório de anomalias</button>
+                        <button className='btn btn-primary'>Relatório Unifique</button>
                     </div>
                 </div>
             </div>
