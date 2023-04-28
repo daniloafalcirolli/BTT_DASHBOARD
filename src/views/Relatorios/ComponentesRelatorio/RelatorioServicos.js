@@ -94,19 +94,6 @@ const RelatorioServicos = () => {
         navigate(`/servico/${event.currentTarget.id}`);
     }
 
-    const generateRelatorioModeloUnifique = () => {
-        if(provedor.name !== undefined){
-            if(provedor.name.toUpperCase() !== "UNIFIQUE"){
-                alert("Relatório modelo unifique só pode ser gerado para os serviços que tenham a unifique como provedor!")
-            } else {
-                console.log("liberar");
-                console.log(data)
-            }
-        }else{
-            alert("Relatório modelo unifique só pode ser gerado para os serviços que tenham a unifique como provedor!")
-        }
-    }
-
     const generateRelatorioModeloPadrao = () => {
         if(data.length != 0){
             let csv = ""
@@ -135,11 +122,6 @@ const RelatorioServicos = () => {
         <>
             <div className="btn-float">
                 <a id="downloadbutton"></a>
-                <Tooltip title="Relatório modelo unifique" onClick={generateRelatorioModeloUnifique}>
-                    <button className="btn btn-primary rounded-circle fixItem">
-                        <FaFileDownload />
-                    </button>
-                </Tooltip>
 
                 <Tooltip title="Relatório modelo padrão" onClick={generateRelatorioModeloPadrao}>
                     <button className="btn btn-primary rounded-circle">

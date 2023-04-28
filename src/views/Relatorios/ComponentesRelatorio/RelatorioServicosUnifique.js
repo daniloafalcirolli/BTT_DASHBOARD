@@ -67,6 +67,78 @@ const RelatorioServicosUnifique = () => {
         fetchData();
     };
 
+    const gerarCSV = function(){
+        let write = "";
+
+        write += 'UNIDADE RESPONSÁVEL;' +
+        'DIA;' +
+        'MÊS;' +
+        'ANO;' +
+        'COMPETÊNCIA;' +
+        'CÓD CLIENTE;' +
+        'PROTOCOLO;' +
+        'CLIENTE;' +
+        'ENDEREÇO;' +
+        'NUMERO;' +
+        'BAIRRO;' +
+        'CIDADE;' +
+        'TIPO DE SERVIÇO;' +
+        'CATEGORIA;' +
+        'TÉC INSTALADOR;' +
+        'CAIXA;' +
+        'PORTA;' +
+        'SINAL dBm;' +
+        'PONTO MESH VIA CABO;' +
+        'PONTO MESH WIFI;' +
+        'FAST POINT;' +
+        'PONTO DE TV;' +
+        'LANÇAMENTO CORDOALHA;' +
+        'ESPINAÇÃO DO CABO;' +
+        'METRAGEM LANÇADA;' +
+        'DIFERENÇA	+ DE 300 MTS;' +
+        'STATUS O.S.;' +
+        'TEC VISTORIADOR;' +
+        'DATA VISTORIA;' +
+        'OBS;' +
+        'PENDÊNCIA;' +
+        'DATA REGULARIZAÇÃO;' +
+        'EMPRESA' +
+        "\n";
+
+        data.forEach(e=>{;
+            write += `${e.unidade_responsavel};` +
+            `${e.dia};` +
+            `${e.mes};` +
+            `${e.ano};;` +
+            `${e.cod_cliente};` +
+            `${e.protocolo};` +
+            `${e.cliente};` +
+            `${e.endereco};;;;` +
+            `${e.tipo_servico};;` +
+            `${e.tecnico};` +
+            `${e.caixa};` +
+            `${e.porta};` +
+            `${e.sinal_dbm};` +
+            `${e.ponto_mesh_via_cabo};` +
+            `${e.ponto_mesh_via_wifi};` +
+            `${e.fast_point};` +
+            `${e.ponto_tv};;` +
+            `${e.espinacao_cabo};` +
+            `${e.metragem_lancada};;;;;;` +
+            `${e.empresa}` +
+            "\n";
+
+        })
+
+        let link = document.querySelector("#downloadbutton");
+        const blob = new Blob([write], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob)
+        link.setAttribute('href', url)
+        link.setAttribute('download', 'relatorio.csv');
+        link.click();
+        
+    }
+
     React.useEffect(() => {
         if (window.localStorage.hasOwnProperty("status_servico_relatorio_servicos")) {
             setStatusServico(window.localStorage.getItem('status_servico_relatorio_servicos'));
@@ -132,7 +204,7 @@ const RelatorioServicosUnifique = () => {
         <>
             <div className="btn-float">
                 <a id="downloadbutton"></a>
-                <Tooltip title="Relatório modelo unifique" onClick={()=>{}}>
+                <Tooltip title="Relatório modelo unifique" onClick={gerarCSV}>
                     <button className="btn btn-primary rounded-circle fixItem">
                         <FaFileDownload />
                     </button>
