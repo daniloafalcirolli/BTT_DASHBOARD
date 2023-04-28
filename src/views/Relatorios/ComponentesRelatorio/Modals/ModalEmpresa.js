@@ -18,9 +18,10 @@ const ModalEmpresa = (props) => {
 	}
 
 	const getEmpresas = async () => {
-		let url = API_URL + `/api/empresa?value=${search.value.toUpperCase()}`;
+		let url = API_URL + `/api/empresa/modal`;
 		let response = await fetch(url);
 		let json = await response.json();
+		console.log(json)
 		setData(json);
 	}
 
@@ -52,9 +53,6 @@ const ModalEmpresa = (props) => {
 										<div className={`table-cell ${modalStyles.table_cell}`}>
 											<span>Empresa</span>
 										</div>
-										<div className={`table-cell ${modalStyles.table_cell}`}>
-											<span>Unidade</span>
-										</div>
 									</div>
 								</div>
 								<div className={`table-body ${modalStyles.body_func}`}>
@@ -64,9 +62,6 @@ const ModalEmpresa = (props) => {
 												<div className={`table-row clickable ${modalStyles.table_row}`} key={index} onClick={selectEmpresa} id={item.nome}>
 													<div className={`table-cell ${modalStyles.table_cell}`}>
 														<span>{item.razao_social}</span>
-													</div>
-													<div className={`table-cell ${modalStyles.table_cell}`}>
-														<span>{item.nome}</span>
 													</div>
 												</div>
 											)

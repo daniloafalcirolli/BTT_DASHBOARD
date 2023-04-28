@@ -40,8 +40,7 @@ const ModalFuncionario = (props) => {
 			{
 				<AbstractModal modalTitle="Relacione os campos ao provedor" isOpen={modal} openModal={toggleModal}>
 					{
-						data &&
-						<>
+						data && <>
 							<div className='table'>
 								<div className="table-controllers">
 									<form onSubmit={handleSearch}>
