@@ -1,0 +1,22 @@
+.clickable {
+    cursor: pointer;
+    position:relative;
+}
+.clickable:hover{
+    opacity: 0.3;
+}
+.head-func{
+	width: max-content;
+}
+.body_func{
+	width: fit-content;
+	overflow-y: auto;
+	max-height: 500px;
+}
+.row_func{
+	width: 180px !important;
+	max-width: 100% !important;
+    min-width: 150px !important;
+	min-height: 53px;
+	height: fit-content;
+}

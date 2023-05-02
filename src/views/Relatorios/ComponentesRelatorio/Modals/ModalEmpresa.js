@@ -21,7 +21,6 @@ const ModalEmpresa = (props) => {
 		let url = API_URL + `/api/empresa/modal`;
 		let response = await fetch(url);
 		let json = await response.json();
-		console.log(json)
 		setData(json);
 	}
 

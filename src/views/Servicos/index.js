@@ -1,21 +1,35 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
-import { GET_SERVICO } from '../../api';
+import { EDIT_FUNCIONARIO_SERVICO, GET_SERVICO } from '../../api';
+import ModalFuncionario from './Modal/ModalFuncionario';
 
 const ServicoDescricao = () => {
 	const params = useParams();
 	const [servico, setServico] = React.useState({});
+	const [funcionario, setFuncionario] = React.useState({});
 
 	React.useState(() => {
 		async function getById() {
 			let { url } = GET_SERVICO(params.id);
 			let response = await fetch(url);
 			let json = await response.json();
-			console.log(json)
 			setServico(json);
 		}
 		getById();
 	}, [params]);
+
+	const EditFuncionario = async function(){
+		if(funcionario.cpf){
+			let items = {
+				cpf_funcionario:`${funcionario.cpf}`,
+				servico_id:params.id
+			}
+			let {url, options} = EDIT_FUNCIONARIO_SERVICO(items);
+			let f = await fetch(url, options);
+			alert(f.status == 200 ? "Funcionario alterado com sucesso" : "Esse funcionario ou servico não existe");
+			window.location.reload(false);
+		}
+	}
 
 	return (
 		<div className="card">
@@ -62,10 +76,15 @@ const ServicoDescricao = () => {
 										<input value={servico.funcionario.empresa} readOnly />
 									</div>
 									{
-										servico.status === "em andamento" ? <div className="w-100 row d-flex justify-content-center">
-											<button className="btn btn-primary w-75 align-self-center">
-												Mudar Funcionario
-											</button>
+										servico.status === "em andamento" ? <div className="d-flex flex-column">
+											<div className="justify-content-around w-100 d-flex">
+												<ModalFuncionario funcionario={setFuncionario} />
+												<button onClick={EditFuncionario} className={`btn btn-primary w-25`}>Trocar Funcionario</button>
+											</div>
+											<div className="mt-4 justify-content-around w-100 d-flex align-items-center">
+												<label className="fw-bold">Novo funcionario:</label>
+												<input className="w-75" value={funcionario.nome || ""} readOnly />
+											</div>
 										</div> : null
 									}
 								</>

@@ -24,3 +24,16 @@ export function GET_ALL_CATEGORIA_SERVICO(id){
         url: API_URL + `/api/categoria/servico/provedor`,
     }
 }
+
+export function EDIT_FUNCIONARIO_SERVICO(body){
+    return {
+        url: API_URL + "/api/servico/edit",
+        options: {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        }
+    }
+}

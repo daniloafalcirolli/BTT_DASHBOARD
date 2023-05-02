@@ -1,10 +1,10 @@
 import React from 'react'
-import AbstractModal from '../../../../components/Modal/AbstractModal';
+import AbstractModal from '../../../components/Modal/AbstractModal';
 import styles from  '../Styles/ModalFuncionario.module.css';
 import modalStyles from '../Styles/Modal.module.css'
-import { API_URL } from '../../../../config';
-import useForm from '../../../../hooks/useForm';
-import Input from '../../../../components/Input/Input';
+import { API_URL } from '../../../config';
+import useForm from '../../../hooks/useForm';
+import Input from '../../../components/Input/Input';
 
 const ModalFuncionario = (props) => {
 	const search  = useForm();
@@ -31,14 +31,12 @@ const ModalFuncionario = (props) => {
 	}
 
 	React.useEffect(() => {
-		if(JSON.stringify(data) == "[]"){
-			getFuncionarios();
-		}
+		getFuncionarios();
 	}, [])
 
 	return (
 		<>
-			<button className={`${modalStyles.button_height} btn btn-primary w-100`} onClick={toggleModal}>Selecione o funcionário</button>
+			<button className={`${modalStyles.button_height} btn btn-primary w-25`} onClick={toggleModal}>Selecione o funcionário</button>
 			{
 				<AbstractModal modalTitle="Relacione os campos ao provedor" isOpen={modal} openModal={toggleModal}>
 					{
