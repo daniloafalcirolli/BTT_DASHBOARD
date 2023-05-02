@@ -13,7 +13,7 @@ const ModalEmpresa = (props) => {
 	const toggleModal = () => setModal(!modal);
 
 	const selectEmpresa = (event) => {
-		props.empresa(data.find((item) => item.nome === event.currentTarget.id));
+		props.empresa(data.find((item) => item.id == event.currentTarget.id));
 		toggleModal();
 	}
 
@@ -30,7 +30,9 @@ const ModalEmpresa = (props) => {
 	}
 
 	React.useEffect(() => {
-		getEmpresas();
+		if(JSON.stringify(data) == "[]"){
+			getEmpresas();
+		}
 	}, [])
 
 	return (
@@ -58,7 +60,7 @@ const ModalEmpresa = (props) => {
 									{
 										data.map((item, index) => {
 											return (
-												<div className={`table-row clickable ${modalStyles.table_row}`} key={index} onClick={selectEmpresa} id={item.nome}>
+												<div className={`table-row clickable ${modalStyles.table_row}`} key={index} onClick={selectEmpresa} id={item.id}>
 													<div className={`table-cell ${modalStyles.table_cell}`}>
 														<span>{item.razao_social}</span>
 													</div>

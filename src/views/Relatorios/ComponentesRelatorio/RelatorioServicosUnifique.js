@@ -11,7 +11,7 @@ import { FormControl, MenuItem, Select, Tooltip } from '@mui/material';
 import "./Styles/RelatorioServicos.module.css";
 
 const RelatorioServicosUnifique = () => {
-    const [data, setData] = React.useState([]);
+    const [servicosUnifique, setServicosUnifique] = React.useState([]);
     const [funcionario, setFuncionario] = React.useState({});
     const [empresa, setEmpresa] = React.useState({});
     const [dataInicio, setDataInicio] = React.useState("");
@@ -105,7 +105,7 @@ const RelatorioServicosUnifique = () => {
         'EMPRESA' +
         "\n";
 
-        data.forEach(e=>{;
+        servicosUnifique.forEach(e=>{;
             write += `${e.unidade_responsavel};` +
             `${e.dia};` +
             `${e.mes};` +
@@ -147,7 +147,7 @@ const RelatorioServicosUnifique = () => {
             setFuncionario(JSON.parse(window.localStorage.getItem('funcionario_relatorio_servicos')));
         }
         if (window.localStorage.hasOwnProperty('data_relatorio_servicos')) {
-            setData(JSON.parse(window.localStorage.getItem('data_relatorio_servicos')));
+            setServicosUnifique(JSON.parse(window.localStorage.getItem('data_relatorio_servicos')));
         }
         setDataInicio(window.localStorage.getItem('data_inicio_relatorio_servicos') ?? "")
         setDataFinal(window.localStorage.getItem('data_final_relatorio_servicos') ?? "")
@@ -158,8 +158,8 @@ const RelatorioServicosUnifique = () => {
         window.localStorage.setItem('funcionario_relatorio_servicos', JSON.stringify(funcionario));
         window.localStorage.setItem('data_inicio_relatorio_servicos', dataInicio);
         window.localStorage.setItem('data_final_relatorio_servicos', dataFinal);
-        window.localStorage.setItem('data_relatorio_servicos', JSON.stringify(data));
-    }, [status_servico, funcionario, dataInicio, dataFinal, data]);
+        window.localStorage.setItem('data_relatorio_servicos', JSON.stringify(servicosUnifique));
+    }, [status_servico, funcionario, dataInicio, dataFinal, servicosUnifique]);
 
     const fetchData = async () => {
         let json_data = {};
@@ -172,7 +172,7 @@ const RelatorioServicosUnifique = () => {
         let { url, options } = GET_SERVICES_UNIFIQUE(json_data);
         let response = await fetch(url, options);
         let json = await response.json();
-        setData(json);
+        setServicosUnifique(json);
     };
 
     const changeDataInicio = (event) => {
@@ -192,7 +192,7 @@ const RelatorioServicosUnifique = () => {
         setDataFinal("");
         setStatusServico("");
         setFuncionario({});
-        setData([]);
+        setServicosUnifique([]);
         setEmpresa({});
     }
 
@@ -340,7 +340,7 @@ const RelatorioServicosUnifique = () => {
 
                         <div className={`table-boy ${styles.table_body_serv}`}>
                             {
-                                data.map((item, index) => {
+                                servicosUnifique.map((item, index) => {
                                     return (
                                         <div className='table-row clickable' key={index} onClick={redirectToDescription} id={item.id}>
                                             <div className={`table-cell ${styles.table_cell_serv}`}>

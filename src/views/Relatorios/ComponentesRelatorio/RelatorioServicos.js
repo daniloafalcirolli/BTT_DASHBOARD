@@ -154,7 +154,7 @@ const RelatorioServicos = () => {
                         <ModalEmpresa empresa={changeEmpresa} />
                     </div>
                     <div className="col-6">
-                        <Input type="text" label="Empresa selecionada" disabled value={empresa.nome ? `${empresa.nome} - ${empresa.razao_social}` : "--"} />
+                        <Input type="text" label="Empresa selecionada" disabled value={empresa.razao_social ? `${empresa.razao_social}` : "--"} />
                     </div>
                 </div>
                 <div className="col-12 row d-flex">
