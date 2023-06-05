@@ -27,32 +27,6 @@ const RelatorioServicos = () => {
         fetchData();
     };
 
-    React.useEffect(() => {
-        if (window.localStorage.hasOwnProperty("status_servico_relatorio_servicos")) {
-            setStatusServico(window.localStorage.getItem('status_servico_relatorio_servicos'));
-        }
-        if (window.localStorage.hasOwnProperty('funcionario_relatorio_servicos')) {
-            setFuncionario(JSON.parse(window.localStorage.getItem('funcionario_relatorio_servicos')));
-        }
-        if (window.localStorage.hasOwnProperty('provedor_relatorio_servicos')) {
-            setProvedor(JSON.parse(window.localStorage.getItem('provedor_relatorio_servicos')));
-        }
-        if (window.localStorage.hasOwnProperty('data_relatorio_servicos')) {
-            setData(JSON.parse(window.localStorage.getItem('data_relatorio_servicos')));
-        }
-        setDataInicio(window.localStorage.getItem('data_inicio_relatorio_servicos') ?? "")
-        setDataFinal(window.localStorage.getItem('data_final_relatorio_servicos') ?? "")
-    }, []);
-
-    React.useEffect(() => {
-        window.localStorage.setItem('status_servico_relatorio_servicos', status_servico);
-        window.localStorage.setItem('funcionario_relatorio_servicos', JSON.stringify(funcionario));
-        window.localStorage.setItem('provedor_relatorio_servicos', JSON.stringify(provedor));
-        window.localStorage.setItem('data_inicio_relatorio_servicos', dataInicio);
-        window.localStorage.setItem('data_final_relatorio_servicos', dataFinal);
-        window.localStorage.setItem('data_relatorio_servicos', JSON.stringify(data));
-    }, [status_servico, funcionario, provedor, dataInicio, dataFinal, data]);
-
     const fetchData = async () => {
         let json_data = {};
         json_data.data_inicio = dataInicio;

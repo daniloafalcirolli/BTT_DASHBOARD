@@ -82,8 +82,8 @@ const ServicoDescricao = () => {
 												<button onClick={EditFuncionario} className={`btn btn-primary w-25`}>Trocar Funcionario</button>
 											</div>
 											<div className="mt-4 justify-content-around w-100 d-flex align-items-center">
-												<label className="fw-bold">Novo funcionario:</label>
-												<input className="w-75" value={funcionario.nome || ""} readOnly />
+												<label className="fw-bold">Novo funcionario</label>
+												<input className="w-75" value={funcionario.nome || "--"} readOnly />
 											</div>
 										</div> : null
 									}
@@ -104,20 +104,52 @@ const ServicoDescricao = () => {
 										servico.cliente.cpf != null ?
 											<div className="col-4">
 												<label>CPF</label>
-												<input value={servico.cliente.cpf} readOnly />
+												<input value={servico.cliente.cpf || "--"} readOnly />
 											</div> :
 											<div className="col-4">
 												<label>CNPJ</label>
-												<input value={servico.cliente.cnpj} readOnly />
+												<input value={servico.cliente.cnpj || "--"} readOnly />
 											</div>
 									}
 									<div className="col-4">
 										<label>Contrato</label>
-										<input value={servico.cliente.contrato} readOnly />
+										<input value={servico.cliente.contrato || "--"} readOnly />
 									</div>
-									<div className="col-12">
+									<div className="col-4">
+										<label>Estado</label>
+										<input value={servico.cliente.estado || "--"} readOnly />
+									</div>
+									<div className="col-4">
+										<label>Cidade</label>
+										<input value={servico.cliente.cidade || "--"} readOnly />
+									</div>
+									<div className="col-4">
+										<label>Bairro</label>
+										<input value={servico.cliente.bairro || "--"} readOnly />
+									</div>
+									<div className="col-4">
+										<label>Logradouro</label>
+										<input value={servico.cliente.logradouro || "--"} readOnly />
+									</div>
+									<div className="col-8">
 										<label>Endereço</label>
-										<input value={servico.cliente.endereco} readOnly />
+										<input value={servico.cliente.endereco || "--"} readOnly />
+									</div>
+									<div className="col-6">
+										<label>Numero</label>
+										<input value={servico.cliente.numero || "--"} readOnly />
+									</div>
+									<div className="col-6">
+										<label>Complemento</label>
+										<input value={servico.cliente.complemento || "--"} readOnly />
+									</div>
+									<div className="col-6">
+										<label>Telefone</label>
+										<input value={servico.cliente.telefone || "--"} readOnly />
+									</div>
+									<div className="col-6">
+										<label>Telefone secundario</label>
+										<input value={servico.cliente.telefone2 || "--"} readOnly />
 									</div>
 								</>
 							}

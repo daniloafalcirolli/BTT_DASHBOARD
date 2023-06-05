@@ -139,28 +139,6 @@ const RelatorioServicosUnifique = () => {
         
     }
 
-    React.useEffect(() => {
-        if (window.localStorage.hasOwnProperty("status_servico_relatorio_servicos")) {
-            setStatusServico(window.localStorage.getItem('status_servico_relatorio_servicos'));
-        }
-        if (window.localStorage.hasOwnProperty('funcionario_relatorio_servicos')) {
-            setFuncionario(JSON.parse(window.localStorage.getItem('funcionario_relatorio_servicos')));
-        }
-        if (window.localStorage.hasOwnProperty('data_relatorio_servicos')) {
-            setServicosUnifique(JSON.parse(window.localStorage.getItem('data_relatorio_servicos')));
-        }
-        setDataInicio(window.localStorage.getItem('data_inicio_relatorio_servicos') ?? "")
-        setDataFinal(window.localStorage.getItem('data_final_relatorio_servicos') ?? "")
-    }, []);
-
-    React.useEffect(() => {
-        window.localStorage.setItem('status_servico_relatorio_servicos', status_servico);
-        window.localStorage.setItem('funcionario_relatorio_servicos', JSON.stringify(funcionario));
-        window.localStorage.setItem('data_inicio_relatorio_servicos', dataInicio);
-        window.localStorage.setItem('data_final_relatorio_servicos', dataFinal);
-        window.localStorage.setItem('data_relatorio_servicos', JSON.stringify(servicosUnifique));
-    }, [status_servico, funcionario, dataInicio, dataFinal, servicosUnifique]);
-
     const fetchData = async () => {
         let json_data = {};
         json_data.data_inicio = dataInicio;
