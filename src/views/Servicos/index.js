@@ -1,7 +1,17 @@
 import React from 'react'
+import {MAPS_KEY, API_URL} from "../../config";
 import { useParams } from 'react-router-dom';
 import { EDIT_FUNCIONARIO_SERVICO, GET_SERVICO } from '../../api';
+import Geocode from "react-geocode";
 import ModalFuncionario from './Modal/ModalFuncionario';
+import InputAlterText from '../../components/InputAlterText/InputAlterText';
+
+import {
+	useJsApiLoader,
+	GoogleMap,
+	Autocomplete,
+	Marker
+  } from '@react-google-maps/api'
 
 const ServicoDescricao = () => {
 	const params = useParams();
@@ -28,7 +38,114 @@ const ServicoDescricao = () => {
 			let f = await fetch(url, options);
 			alert(f.status == 200 ? "Funcionario alterado com sucesso" : "Esse funcionario ou servico não existe");
 			window.location.reload(false);
+		}else{
+			alert("Não é possivel trocar o funcionario sem ter selecionado um.")
 		}
+	}
+
+	const [map, setMap] = React.useState(null);
+	const [valorFinal, setValorFinal] = React.useState(null);
+	const [localizacao, setLocalizacao] = React.useState({
+		lat: 0,
+		lng: 0
+	})
+	const originRef = React.useRef();
+	
+	Geocode.setApiKey(MAPS_KEY);
+	Geocode.setLanguage("br");
+
+	let libraries = ["places"];
+	const {isLoaded} = useJsApiLoader({
+		googleMapsApiKey: MAPS_KEY,
+		libraries: libraries,
+	})
+
+	const salvarEndereco = async function(){
+		if(
+			valorFinal["estado"] == "" ||
+			valorFinal["cidade"] == "" ||
+			valorFinal["bairro"] == "" ||
+			valorFinal["logradouro"] == "" ||
+			valorFinal["endereco"] == "" ||
+			valorFinal["numero"] == "" ||
+			valorFinal["complemento"] == "" ||
+			valorFinal["latitude"] == "" ||
+			valorFinal["longitude"] == ""
+		)
+		return alert("Algum campo não esta preenchido");
+
+		let temp = servico["cliente"];
+		temp["estado"] = valorFinal["estado"];
+		temp["cidade"] = valorFinal["cidade"];
+		temp["bairro"] = valorFinal["bairro"];
+		temp["logradouro"] = valorFinal["logradouro"];
+		temp["endereco"] = valorFinal["endereco"];
+		temp["numero"] = valorFinal["numero"];
+		temp["complemento"] = valorFinal["complemento"];
+		temp["latitude"] = valorFinal["latitude"]+"";
+		temp["longitude"] = valorFinal["longitude"]+"";
+		
+		let settings = {
+			"method": "PUT",
+			"headers": {
+				"Content-Type": "application/json"
+			},
+			"body": JSON.stringify(temp)
+		}
+
+		console.log(temp)
+
+		let f = await fetch(`${API_URL}/api/cliente`, settings);
+		if(f["status"] == 200){
+			alert("Endereço alterado com sucesso");
+		}else{
+			alert("erro ao alterar endereço, tente novamente")
+		}
+
+	}
+
+	async function calculateRoute() {
+		if (originRef.current.value === '') {
+		  return
+		}
+
+		setValorFinal(null);
+
+		Geocode.fromAddress(originRef.current.value).then(
+			response => {
+				const { lat, lng } = response.results[0].geometry.location;
+				setLocalizacao({
+					lat: lat,
+					lng: lng
+				});
+				Geocode.fromLatLng(lat+"", lng+"").then(
+					response=>{
+						let endereco = "";
+						response.results[0].address_components[1].long_name.split(" ").forEach((e, index)=>{
+							endereco += (index >= 1 ? `${e} ` : '')
+						})
+						setValorFinal({
+							numero: response.results[0].address_components[0].long_name,
+							endereco: endereco.substring(0, endereco.length-1),
+							logradouro: response.results[0].address_components[1].long_name.split(" ")[0],
+							cidade: response.results[0].address_components[3].long_name,
+							estado: response.results[0].address_components[4].long_name,
+							numero: response.results[0].address_components[0].long_name,
+							bairro: response.results[0].address_components[2].long_name,
+							complemento: "",
+							latitude: lat,
+							longitude: lng
+						})
+					}
+				)
+              map.setZoom(15);
+			},
+			error => {
+			  alert("algum erro foi detectado tente novamente");
+			}
+		);
+
+
 	}
 
 	return (
@@ -152,6 +269,118 @@ const ServicoDescricao = () => {
 										<input value={servico.cliente.telefone2 || "--"} readOnly />
 									</div>
 								</>
+							}
+						</div>
+
+						<h4>Novas informações do cliente</h4>
+						<div className="col-12 mt-4 mb-4">
+							{
+								isLoaded && <div
+									className="col-12"
+								>
+									<div
+										className={"col-12 flex row mb-3"}
+									>
+										<Autocomplete
+											className={`w-75`}
+										>
+											<input
+												className={`mb-0`}
+												type='text'
+												placeholder='Destination'
+												ref={originRef}
+											/>
+										</Autocomplete>
+										<button
+											className={`btn btn-primary w-25`}
+											onClick={calculateRoute}
+										>
+											Preencher
+										</button>
+									</div>
+									<GoogleMap
+										mapContainerStyle={{
+											width: "100%",
+											height: "500px",
+											borderRadius: "10px"
+										}}
+										zoom={15}
+										center={localizacao}
+										onLoad={map => setMap(map)}
+									>
+										<Marker position={localizacao} />
+									</GoogleMap>
+									{
+										valorFinal && <>
+											<div
+												className={"row mt-3"}
+											>
+												<div className="col-4">
+													<label>Estado</label>
+													<InputAlterText
+														OldValue={valorFinal}
+														NewValue={setValorFinal}
+														typeToChange={"estado"}
+													/>
+												</div>
+												<div className="col-4">
+													<label>Cidade</label>
+													<InputAlterText
+														OldValue={valorFinal}
+														NewValue={setValorFinal}
+														typeToChange={"cidade"}
+													/>
+												</div>
+												<div className="col-4">
+													<label>Bairro</label>
+													<InputAlterText
+														OldValue={valorFinal}
+														NewValue={setValorFinal}
+														typeToChange={"bairro"}
+													/>
+												</div>
+												<div className="col-4">
+													<label>Logradouro</label>
+													<InputAlterText
+														OldValue={valorFinal}
+														NewValue={setValorFinal}
+														typeToChange={"logradouro"}
+													/>
+												</div>
+												<div className="col-8">
+													<label>Endereço</label>
+													<InputAlterText
+														OldValue={valorFinal}
+														NewValue={setValorFinal}
+														typeToChange={"endereco"}
+													/>
+												</div>
+												<div className="col-6">
+													<label>Numero</label>
+													<InputAlterText
+														OldValue={valorFinal}
+														NewValue={setValorFinal}
+														typeToChange={"numero"}
+													/>
+												</div>
+												<div className="col-6">
+													<label>Complemento</label>
+													<InputAlterText
+														OldValue={valorFinal}
+														NewValue={setValorFinal}
+														typeToChange={"complemento"}
+													/>
+												</div>
+											</div>
+											<button
+												onClick={salvarEndereco}
+												className={"btn btn-primary w-100"}
+											>
+												Salvar novo endereço
+											</button>
+										</>
+									}
+								</div>
 							}
 						</div>
 
